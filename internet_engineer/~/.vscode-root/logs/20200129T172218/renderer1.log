@@ -1,0 +1,3 @@
+[2020-01-29 17:23:04.684] [renderer1] [error] net::ERR_NAME_NOT_RESOLVED: Error: net::ERR_NAME_NOT_RESOLVED
+[2020-01-29 17:27:57.027] [renderer1] [error] Error: [File Watcher (chokidar)] Inotify limit reached (ENOSPC)
+[2020-01-29 17:27:57.035] [renderer1] [error] [File Watcher (chokidar)] Inotify limit reached (ENOSPC)

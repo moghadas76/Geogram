@@ -1,0 +1,225 @@
+Looking for git in: git
+Using git 2.17.1 from git
+> git rev-parse --show-toplevel
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+> git rev-parse --show-toplevel
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+> git rev-parse --show-toplevel
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+> git rev-parse --show-toplevel
+fatal: not a git repository (or any parent up to mount point /)
+Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+> git rev-parse --show-toplevel
+> git rev-parse --git-dir
+> git config --get commit.template
+Open repository: /home/seyed/internet_engineer/Geogram/Geogram
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+fatal: ambiguous argument 'master': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :Geogram/settings.py
+> git ls-files --stage -- Geogram/
+> git check-ignore -v -z --stdin
+> git show :map/apps.py
+> git ls-files --stage -- map/
+> git show :Geogram/settings.py
+> git ls-files --stage -- Geogram/
+> git show :map/apps.py
+> git ls-files --stage -- map/
+> git show :messenger/apps.py
+> git ls-files --stage -- messenger/
+> git show :Geogram/settings.py
+> git ls-files --stage -- Geogram/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :Geogram/settings.py
+> git ls-files --stage -- Geogram/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :Geogram/serializers.py
+> git ls-files --stage -- Geogram/
+> git check-ignore -v -z --stdin
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git check-ignore -v -z --stdin
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git check-ignore -v -z --stdin
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/views.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/views.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/views.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :Geogram/urls.py
+> git ls-files --stage -- Geogram/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :Geogram/urls.py
+> git ls-files --stage -- Geogram/
+> git show :messenger/views.py
+> git ls-files --stage -- messenger/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/views.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :Geogram/urls.py
+> git ls-files --stage -- Geogram/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :Geogram/urls.py
+> git ls-files --stage -- Geogram/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :messenger/views.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :Geogram/urls.py
+> git ls-files --stage -- Geogram/
+> git check-ignore -v -z --stdin
+> git check-ignore -v -z --stdin
+> git show :messenger/migrations/__init__.py
+> git ls-files --stage -- messenger/migrations/
+> git show :messenger/migrations/0001_initial.py
+> git ls-files --stage -- messenger/migrations/
+> git show :Geogram/urls.py
+> git ls-files --stage -- Geogram/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/views.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/tests.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/tests.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :map/serializers.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/serializers.py
+> git ls-files --stage -- messenger/
+> git show :map/tests.py
+> git ls-files --stage -- map/
+> git show :map/models.py
+> git ls-files --stage -- map/
+> git show :messenger/models.py
+> git ls-files --stage -- messenger/
+> git show :.gitignore
+> git check-ignore -v -z --stdin
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+fatal: ambiguous argument 'master': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore
+> git status -z -u
+> git symbolic-ref --short HEAD
+> git rev-parse master
+> git rev-parse --symbolic-full-name master@{u}
+fatal: no upstream configured for branch 'master'
+> git for-each-ref --format %(refname) %(objectname) --sort -committerdate
+> git remote --verbose
+> git show :.gitignore

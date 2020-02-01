@@ -1,0 +1,5 @@
+venv/
+.vscode-root/*
+*.pyc
+.log
+.code

@@ -1,0 +1,582 @@
+
+#include<stdio.h>
+#include<string.h>
+#include<iostream>
+#include<conio.h>
+#include <stdlib.h>
+using namespace std;
+
+/*---class of Array (sparse matrix)---*/
+class sp_array{
+    int i,j,k,a[100][3],m,n;
+public:
+    void read_convert();
+    void display();
+    int addition(sp_array s1,sp_array s2);
+    int multiply(sp_array s1,sp_array s2);
+    void transpose(sp_array s1);
+    sp_array(){}
+    ~sp_array(){}
+};
+void sp_array::read_convert(){
+
+    int num;
+    cout<<"\nrow(count): ";
+    cin>>m;
+    cout<<"col(count): ";
+    cin>>n;
+
+    int row=1,cnt=0;
+    for(i=1;i<=m;i++){
+        for(j=1;j<=n;j++){
+            cout<<"["<<i<<"]["<<j<<"]: ";
+            cin>>num;
+            if(num!=0){
+                a[row][0]=i;
+                a[row][1]=j;
+                a[row][2]=num;
+                row++;
+                cnt++;
+            }//end of if
+        }//end of for j
+    }//end of for i
+    a[0][0]=m;
+    a[0][1]=n;
+    a[0][2]=cnt;
+}
+void sp_array::display(){
+    for(i=0;i<=a[0][2];i++)
+        cout<<"\n["<<i<<"]["<<0<<"]:"<<a[i][0]<<"  ["<<i<<"]["<<1<<"]:"<<a[i][1]<<"  ["<<i<<"]["<<2<<"]:"<<a[i][2];
+}
+void sp_array::transpose(sp_array s1){
+    for(i=0;i<=s1.a[0][2];i++){
+        a[i][0]=s1.a[i][1];
+        a[i][1]=s1.a[i][0];
+        a[i][2]=s1.a[i][2];
+    }
+}
+int sp_array::addition(sp_array s1,sp_array s2){
+    i=1;
+    j=1;
+    k=1;
+    if(s1.m==s2.m && s1.n==s2.n){
+        while(i<=s1.a[0][2] && j<=s2.a[0][2]){
+            if(s1.a[i][0]==s2.a[j][0] && s1.a[i][1]==s2.a[j][1]){
+                a[k][0]=s1.a[i][0];
+                a[k][1]=s1.a[i][1];
+                a[k][2]=s1.a[i][2]+s2.a[j][2];
+                i++;
+                j++;
+                k++;
+            }else if((s1.a[i][0]==s2.a[j][0] && s1.a[i][1]<s2.a[j][1]) || s1.a[i][0]<s2.a[j][0]){
+                a[k][0]=s1.a[i][0];
+                a[k][1]=s1.a[i][1];
+                a[k][2]=s1.a[i][2];
+                i++;
+                k++;
+            }else if((s1.a[i][0]==s2.a[j][0] && s1.a[i][1]>s2.a[j][1]) || s1.a[i][0]>s2.a[j][0]){
+                a[k][0]=s2.a[j][0];
+                a[k][1]=s2.a[j][1];
+                a[k][2]=s2.a[j][2];
+                j++;
+                k++;
+            }//end else if
+        }//end while
+        while(i<=s1.a[0][2]){
+            a[k][0]=s1.a[i][0];
+            a[k][1]=s1.a[i][1];
+            a[k][2]=s1.a[i][2];
+            i++;
+            k++;
+        }//end while
+        while(j<=s2.a[0][2]){
+            a[k][0]=s2.a[j][0];
+            a[k][1]=s2.a[j][1];
+            a[k][2]=s2.a[j][2];
+            j++;
+            k++;
+        }
+        a[0][0]=s1.a[0][0];
+        a[0][1]=s1.a[0][1];
+        a[0][2]=--k;
+
+        return 1;
+    }else{
+        cout<<"\n\nAddition not possible!";
+        _getch();
+        return 0;
+    }
+}
+int sp_array::multiply(sp_array s1,sp_array s2){
+    int temp=0,tmpt;
+    if(s1.a[0][1]==s2.a[0][0]){
+        for(i=0;i<=s2.a[0][2];i++){
+            tmpt=s2.a[i][0];
+            s2.a[i][0]=s2.a[i][1];
+            s2.a[i][1]=tmpt;
+        }//transpose matrix 2
+        k=1;
+
+        for(m=1;m<=s1.a[0][0];m++){
+            for(n=1;n<=s2.a[0][0];n++){
+                temp=0;
+                i=1;
+                j=1;
+                while(j<=s2.a[0][2] && i<=s1.a[0][2]){
+                    if(s1.a[i][0]==m && s2.a[j][0]==n && s1.a[i][1]==s2.a[j][1]){
+                        temp+=s1.a[i][2]*s2.a[j][2];
+                        i++;
+                        j++;
+                    }else if(s1.a[i][0]==m && s2.a[j][0]==n && s1.a[i][1]<s2.a[j][1] ){
+                        i++;
+                    }else if(s1.a[i][0]==m && s2.a[j][0]==n && s1.a[i][1]>s2.a[j][1]){
+                        j++;
+                    }else if(s1.a[i][0]<m){
+                        i++;
+                    }else{
+                        j++;
+                    }//end of else
+                }//end of while
+                if(temp!=0){
+                    a[k][0]=m;
+                    a[k][1]=n;
+                    a[k][2]=temp;
+                    k++;
+                }//end of if temp!=0
+            }//end of for n
+        }//end of for m
+        a[0][0]=s1.a[0][0];
+        a[0][1]=s2.a[0][0];
+        a[0][2]=--k;
+        return 1;
+    }else{
+        cout<<"\nmulitiply not possible!";
+        _getch();
+        return 0;
+    }//end of else
+}
+
+/*---class of Linked List (sparse matrix)---*/
+class node{
+    friend class sp_lnk_list;
+    int row;
+    int col;
+    int value;
+    node *next;
+};
+class sp_lnk_list{
+    int i,j,k,m,n;
+public:
+    sp_lnk_list(){
+        first=last=head=NULL;
+    }
+    ~sp_lnk_list(){
+        node *curptr=head;
+        node * temp;
+        while(curptr){
+            temp=curptr;
+            curptr=curptr->next;
+            delete temp;
+        }// end while
+    }
+    void read_convert();
+    void display();
+    int addition(sp_lnk_list s1,sp_lnk_list s2);
+    int multiply(sp_lnk_list s1,sp_lnk_list s2);
+    void transpose(sp_lnk_list s1);
+private:
+    node *first;
+    node *last;
+    node *head;
+};
+void sp_lnk_list::read_convert(){
+
+    int num,cnt=0;
+    cout<<"\nrow(count): ";
+    cin>>m;
+    cout<<"col(count): ";
+    cin>>n;
+
+    if(head==NULL){
+        node *newptr=new node;
+        newptr->row=m;
+        newptr->col=n;
+        newptr->value=0;
+        head=newptr;
+    }
+
+    for(i=1;i<=m;i++){
+        for(j=1;j<=n;j++){
+            cout<<"["<<i<<"]["<<j<<"]: ";
+            cin>>num;
+            if(num!=0){
+                node *newptr=new node;
+                if(first==NULL){
+                    first=last=newptr;
+                    first->next=NULL;
+                    last->next=NULL;
+                }
+                if(first->next==NULL){
+                    first->next=newptr;
+                }
+                last->next=newptr;
+                last=newptr;
+                newptr->row=i;
+                newptr->col=j;
+                newptr->value=num;
+                last->next=NULL;
+                cnt++;
+            }//end of if
+        }//end of for j
+    }//end of for i
+    head->value=cnt;
+    head->next=first;
+}
+void sp_lnk_list::display(){
+    node *curptr=head;
+    while(curptr){
+        cout<<"\nrow: "<<curptr->row<<" col: "<<curptr->col<<" value: "<<curptr->value;
+        curptr=curptr->next;
+    }//end while
+    //_getch();
+}
+void sp_lnk_list::transpose(sp_lnk_list s1){
+    node *curptr=s1.head;
+    while(curptr){
+        if(head==NULL){
+            node *newptr=new node;
+            newptr->col=curptr->row;
+            newptr->row=curptr->col;
+            newptr->value=curptr->value;
+            head=newptr;
+        }else if(first==NULL){
+            node *newptr=new node;
+            first=last=newptr;
+            newptr->col=curptr->row;
+            newptr->row=curptr->col;
+            newptr->value=curptr->value;
+            first->next=NULL;
+            last->next=NULL;
+        }else{
+            node *newptr=new node;
+            if(first->next==NULL){
+                first->next=newptr;
+            }
+            last->next=newptr;
+            last=newptr;
+            newptr->col=curptr->row;
+            newptr->row=curptr->col;
+            newptr->value=curptr->value;
+            last->next=NULL;
+        }
+        curptr=curptr->next;
+    }//end while
+    head->next=first;
+}
+int sp_lnk_list::addition(sp_lnk_list s1,sp_lnk_list s2){
+    node *curptrh1=s1.head;
+    node *curptrh2=s2.head;
+    node *curptr1=s1.first;
+    node *curptr2=s2.first;
+
+    k=1;
+    if(curptrh1->row==curptrh2->row && curptrh1->col==curptrh2->col){
+        while(curptr1!=NULL && curptr2!=NULL){
+            if(curptr1->row==curptr2->row && curptr1->col==curptr2->col){
+                node *newptr=new node;
+                if(first==NULL){
+                    first=last=newptr;
+                    first->next=NULL;
+                    last->next=NULL;
+                }else{
+                    if(first->next==NULL){
+                        first->next=newptr;
+                    }
+                    last->next=newptr;
+                    last=newptr;
+                    last->next=NULL;
+                }
+                newptr->row=curptr1->row;
+                newptr->col=curptr1->col;
+                newptr->value=curptr1->value+curptr2->value;
+                curptr1=curptr1->next;
+                curptr2=curptr2->next;
+                k++;
+            }else if((curptr1->row==curptr2->row && curptr1->col<curptr2->col) || curptr1->row<curptr2->row){
+                node *newptr=new node;
+                if(first==NULL){
+                    first=last=newptr;
+                    first->next=NULL;
+                    last->next=NULL;
+                }else{
+                    if(first->next==NULL){
+                        first->next=newptr;
+                    }
+                    last->next=newptr;
+                    last=newptr;
+                    last->next=NULL;
+                }
+                newptr->row=curptr1->row;
+                newptr->col=curptr1->col;
+                newptr->value=curptr1->value;
+                curptr1=curptr1->next;
+                k++;
+            }else if((curptr1->row==curptr2->row && curptr1->col>curptr2->col) || curptr1->row>curptr2->row){
+                node *newptr=new node;
+                if(first==NULL){
+                    first=last=newptr;
+                    first->next=NULL;
+                    last->next=NULL;
+                }else{
+                    if(first->next==NULL){
+                        first->next=newptr;
+                    }
+                    last->next=newptr;
+                    last=newptr;
+                    last->next=NULL;
+                }
+                newptr->row=curptr2->row;
+                newptr->col=curptr2->col;
+                newptr->value=curptr2->value;
+                curptr2=curptr2->next;
+                k++;
+            }//end else if
+        }//end while
+        while(curptr1){
+            node *newptr=new node;
+            if(first==NULL){
+                first=last=newptr;
+                first->next=NULL;
+                last->next=NULL;
+            }else{
+                if(first->next==NULL){
+                    first->next=newptr;
+                }
+                last->next=newptr;
+                last=newptr;
+                last->next=NULL;
+            }//end else
+            newptr->row=curptr1->row;
+            newptr->col=curptr1->col;
+            newptr->value=curptr1->value;
+            curptr1=curptr1->next;
+            k++;
+        }//end while(curptr1)
+        while(curptr2){
+            node *newptr=new node;
+            if(first==NULL){
+                first=last=newptr;
+                first->next=NULL;
+                last->next=NULL;
+            }else{
+                if(first->next==NULL){
+                    first->next=newptr;
+                }
+                last->next=newptr;
+                last=newptr;
+                last->next=NULL;
+            }//end else
+            newptr->row=curptr2->row;
+            newptr->col=curptr2->col;
+            newptr->value=curptr2->value;
+            curptr2=curptr2->next;
+            k++;
+        }//end while(curptr2)
+        if(head==NULL){
+            node *newptr=new node;
+            newptr->row=curptrh1->row;
+            newptr->col=curptrh1->col;
+            newptr->value=--k;
+            head=newptr;
+            head->next=first;
+        }
+        return 1;
+    }else{
+        cout<<"\n\nAddition not possible!";
+        _getch();
+        return 1;
+    }
+}
+int sp_lnk_list::multiply(sp_lnk_list s1,sp_lnk_list s2){
+    node *curptrh1=s1.head;
+    node *curptrh2=s2.head;
+    node *curptr1=s1.first;
+    node *curptr2=s2.first;
+
+    int temp=0,tmpt;
+    if(curptrh1->col==curptrh2->row){
+        while(curptr2){
+            tmpt=curptr2->row;
+            curptr2->row=curptr2->col;
+            curptr2->col=tmpt;
+            curptr2=curptr2->next;
+        }//transpose matrix 2
+        k=1;
+        for(m=1;m<=curptrh1->row;m++){
+            for(n=1;n<=curptrh2->row;n++){
+                temp=0;
+                curptr1=s1.first;
+                curptr2=s2.first;
+                //i=1;
+                //j=1;
+                while(curptr2 && curptr1){
+                    if(curptr1->row==m && curptr2->row==n && curptr1->col==curptr2->col){
+                        temp+=curptr1->value*curptr2->value;
+                        curptr1=curptr1->next;
+                        curptr2=curptr2->next;
+                    }else if(curptr1->row==m && curptr2->row==n && curptr1->col<curptr2->col){
+                        curptr1=curptr1->next;
+                    }else if(curptr1->row==m && curptr2->row==n && curptr1->col>curptr2->col){
+                        curptr2=curptr2->next;
+                    }else if(curptr1->row<m){
+                        curptr1=curptr1->next;
+                    }else{
+                        curptr2=curptr2->next;
+                    }//end of else
+                }//end of while
+                if(temp!=0){
+                    node *newptr=new node;
+                    if(first==NULL){
+                        first=last=newptr;
+                        first->next=NULL;
+                        last->next=NULL;
+                    }else{
+                        if(first->next==NULL){
+                            first->next=newptr;
+                        }
+                        last->next=newptr;
+                        last=newptr;
+                        last->next=NULL;
+                    }//end else
+                    newptr->row=m;
+                    newptr->col=n;
+                    newptr->value=temp;
+                    k++;
+                }//end of if temp!=0
+            }//end of for n
+        }//end of for m
+        if(head==NULL){
+            node *newptr=new node;
+            newptr->row=curptrh1->row;
+            newptr->col=curptrh2->col;
+            newptr->value=--k;
+            head=newptr;
+            head->next=first;
+        }
+        return 1;
+    }else{
+        cout<<"\nmulitiply not possible!";
+        _getch();
+        return 0;
+    }//end of else
+
+}
+//pr:A j
+void main(){
+    sp_array sp1,sp2,sp3;
+    sp_lnk_list sl1,sl2,sl3;
+    char x;
+
+    cout<<"\ninput key    [1] :addition  (array)\n";
+    cout<<"             [2] :multiply  (array)\n";
+    cout<<"             [3] :transpose (array)\n\n";
+
+    cout<<"             [4] :addition  (linked list)\n";
+    cout<<"             [5] :multiply  (linked list)\n";
+    cout<<"             [6] :transpose (linked list)\n";
+
+    cout<<"             [0] :exit\n";
+    cout<<"select: ";
+    cin>>x;
+    switch(x){
+        case '0':
+            exit(1);
+            break;
+        case '1':
+            cout<<"\n\n Matrix 1 (input):";
+            sp1.read_convert();
+            cout<<"\n\n Matrix 1 (display):\n\n";
+            sp1.display();
+            cout<<"\n\n Matrix 2 (input):";
+            sp2.read_convert();
+            cout<<"\n\n Matrix 2 (display):\n\n";
+            sp2.display();
+            if(sp3.addition(sp1,sp2)==1){
+                cout<<"\n\n Addition is:\n\n";
+                sp3.display();
+                _getch();
+            }
+            break;
+        case '2':
+            cout<<"\n\n Matrix 1 (input):";
+            sp1.read_convert();
+            cout<<"\n\n Matrix 1 (display):\n\n";
+            sp1.display();
+            cout<<"\n\n Matrix 2 (input):";
+            sp2.read_convert();
+            cout<<"\n\n Matrix 2 (display):\n\n";
+            sp2.display();
+            if(sp3.multiply(sp1,sp2)==1){
+                cout<<"\n\n Multiply is:\n\n";
+                sp3.display();
+                _getch();
+            }
+
+            break;
+        case '3':
+            cout<<"\n\n Matrix 1 (input):";
+            sp1.read_convert();
+            cout<<"\n\n Matrix 1 (display):\n\n";
+            sp1.display();
+            sp2.transpose(sp1);
+            cout<<"\n\n Transpose is:\n\n";
+            sp2.display();
+            _getch();
+            break;
+        case '4':
+            cout<<"\n\n Matrix 1 (input):";
+            sl1.read_convert();
+            cout<<"\n\n Matrix 1 (display):\n\n";
+            sl1.display();
+            cout<<"\n\n Matrix 2 (input):";
+            sl2.read_convert();
+            cout<<"\n\n Matrix 2 (display):\n\n";
+            sl2.display();
+            if(sl3.addition(sl1,sl2)==1){
+                cout<<"\n\n Addition is:\n\n";
+                sl3.display();
+                _getch();
+            }
+            break;
+        case '5':
+            cout<<"\n\n Matrix 1 (input):";
+            sl1.read_convert();
+            cout<<"\n\n Matrix 1 (display):\n\n";
+            sl1.display();
+            cout<<"\n\n Matrix 2 (input):";
+            sl2.read_convert();
+            cout<<"\n\n Matrix 2 (display):\n\n";
+            sl2.display();
+            if(sl3.multiply(sl1,sl2)==1){
+                cout<<"\n\n Multiply is:\n\n";
+                sl3.display();
+                _getch();
+            }
+            break;
+        case '6':
+            cout<<"\n\n Matrix 1 (input):";
+            sl1.read_convert();
+            cout<<"\n\n Matrix 1 (display):\n\n";
+            sl1.display();
+            sl2.transpose(sl1);
+            cout<<"\n\n Transpose is:\n\n";
+            sl2.display();
+            _getch();
+            break;
+        default:
+            cout<<"(Invalid key)";
+
+    }//end switch
+
+    exit(1);
+}
